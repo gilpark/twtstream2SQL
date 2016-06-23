@@ -7,7 +7,7 @@
   build querys to add records to DB
 */
 
-import de.bezier.data.sql.*;
+//import de.bezier.data.sql.*;
 import java.util.*;
 import java.sql.*;
 
