@@ -1,27 +1,27 @@
 //  @TODO : get images in tweets ref: http://twitter4j.org/javadoc/twitter4j/User.html
-//  @TODO : get/restore unicode text
-// ref (inserting unicode UTF-8 2 Mysql) : https://coderwall.com/p/rvduyw/jdbc-inserting-unicode-utf-8-characters-into-mysql
 /*
   SQLdb()
-  connect to a remote SQL database
-  build querys to add records to DB
-*/
+ connect to a remote SQL database
+ build querys to add records to DB
+ */
 
 //import de.bezier.data.sql.*;
 import java.util.*;
 import java.sql.*;
 
 class SQLdb {
-  MySQL msql;
+  
+  MySQL_UTF8 msql;
+  
   java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //SQL datetime format
 
-  SQLdb(PApplet p) {
-    msql = new MySQL( p, sql_address, sql_database, sql_user, sql_pass );
-    if ( msql.connect() ) {
-      println("connected");
-    } else {
-      println("failed to connect!");
-    }
+    SQLdb(PApplet p) {
+        msql = new MySQL_UTF8( p, sql_address, sql_database, sql_user, sql_pass );
+        if ( msql.connect() ) {
+          println("connected");
+        } else {
+          println("failed to connect!");
+        }
   }
   /* data base structure
    table: tweets
@@ -70,7 +70,9 @@ class SQLdb {
   //get rid of url in tweets
   String msg (String text) {
     text = text.replaceAll("((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)", "");
-    text = text.replace("'", "");
+    text = text.replace("'", "\'");
+    text = text.replace("'", "''");
+    text = text.replace("/", "\\\\/");
     text = text.replaceAll("@\\w+", "");
     text = text.replaceAll("RT+", "");
     text = text.replace("\\.+", ".");

@@ -11,6 +11,8 @@ String sql_address = "";
 
 GetStream stream;
 SQLdb db;
+//MySQL_UTF8 db;
+
 void setup() {
   //load twitter api key and SQL database info
   //config.csv header :

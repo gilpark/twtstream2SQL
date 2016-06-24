@@ -1,5 +1,4 @@
 //twitter4j code examples : http://twitter4j.org/en/code-examples.html
-//@TODO : multiLang suport (unicode)
 
 /*
   GetStream()
