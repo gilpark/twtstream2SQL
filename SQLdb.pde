@@ -1,6 +1,6 @@
 //  @TODO : get images in tweets ref: http://twitter4j.org/javadoc/twitter4j/User.html
 //  @TODO : get/restore unicode text
-
+// ref (inserting unicode UTF-8 2 Mysql) : https://coderwall.com/p/rvduyw/jdbc-inserting-unicode-utf-8-characters-into-mysql
 /*
   SQLdb()
   connect to a remote SQL database

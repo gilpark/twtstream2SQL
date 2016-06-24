@@ -18,7 +18,7 @@ class GetStream {
       public void onStatus(Status status) {
 
       //filltering by geolocation & language
-      if (status.getGeoLocation() != null && status.getLang().equals("en")){     
+      if (status.getGeoLocation() != null){     
         db.addRec(status);
       }  
     }
