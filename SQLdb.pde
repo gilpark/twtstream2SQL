@@ -26,9 +26,9 @@ class SQLdb {
   /* data base structure
    table: tweets
    --------------------------------------------------------------------------------------------------------------------------
-   |tweet_id   | tweet_text  |created_at|geo_lat|geo_long|  user_id  |screen_name|   name     |profile_image_url|  is_rt    |
+   |tweet_id   | tweet_text  |created_at|geo_lat|geo_long|  user_id  |screen_name|   name     |profile_image_url|  place    |  lang    |
    --------------------------------------------------------------------------------------------------------------------------
-   | bigint(20)| varchar(160)| datetime |double | double | bigint(20)| char(20)  | varchar(20)| varchar(200)    | tinyint(1)|
+   | bigint(20)| varchar(160)| datetime |double | double | bigint(20)| char(20)  | varchar(20)| varchar(200)    |  char(20) | char(3)  |
    --------------------------------------------------------------------------------------------------------------------------
    table: users
    ---------------------------------------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class SQLdb {
    */
   void addRec(Status s) {
     //add record to tweets table
-    String qr1 = "INSERT INTO tweets(tweet_id,tweet_text,created_at,geo_lat,geo_long,user_id, screen_name, name, profile_image_url) VALUES (";
+    String qr1 = "INSERT INTO tweets(tweet_id,tweet_text,created_at,geo_lat,geo_long,user_id, screen_name, name, profile_image_url, place, lang ) VALUES (";
     qr1 += s.getId() + ",'" +
       msg(s.getText()) + "','" +
       sdf.format(s.getCreatedAt())+"'," + 
@@ -48,7 +48,9 @@ class SQLdb {
       s.getUser().getId() + ",'"+
       s.getUser().getScreenName() + "','"+
       s.getUser().getName() + "','"+
-      s.getUser().getMiniProfileImageURL() + "')";
+      s.getUser().getMiniProfileImageURL() + "','" +
+      s.getPlace().getName()  + "','" +
+      s.getLang() +"')";
 
     String qr2 = "INSERT INTO users(user_id, screen_name, name, profile_image_url, location, url, description, created_at, followers_count, friends_count) VALUES (";
     qr2 += s.getUser().getId() + ",'"+
