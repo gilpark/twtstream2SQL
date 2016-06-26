@@ -25,11 +25,11 @@ class SQLdb {
   }
   /* data base structure
    table: tweets
-   --------------------------------------------------------------------------------------------------------------------------
-   |tweet_id   | tweet_text  |created_at|geo_lat|geo_long|  user_id  |screen_name|   name     |profile_image_url|  place    |  lang    |
-   --------------------------------------------------------------------------------------------------------------------------
-   | bigint(20)| varchar(160)| datetime |double | double | bigint(20)| char(20)  | varchar(20)| varchar(200)    |  char(20) | char(3)  |
-   --------------------------------------------------------------------------------------------------------------------------
+   --------------------------------------------------------------------------------------------------------------------------------------------------
+   |tweet_id   | tweet_text  |created_at|geo_lat|geo_long|  user_id  |screen_name|   name     |profile_image_url|  place    |  lang    | description |
+   --------------------------------------------------------------------------------------------------------------------------------------------------
+   | bigint(20)| varchar(160)| datetime |double | double | bigint(20)| char(20)  | varchar(20)| varchar(200)    |  char(20) | char(3)  | varchar(200)|
+   --------------------------------------------------------------------------------------------------------------------------------------------------
    table: users
    ---------------------------------------------------------------------------------------------------------------------------------------
    | user_id  |screen_name|   name    |profile_image_url|  location   |     url    |description |created_at|followers_count|friends_count|
@@ -39,7 +39,7 @@ class SQLdb {
    */
   void addRec(Status s) {
     //add record to tweets table
-    String qr1 = "INSERT INTO tweets(tweet_id,tweet_text,created_at,geo_lat,geo_long,user_id, screen_name, name, profile_image_url, place, lang ) VALUES (";
+    String qr1 = "INSERT INTO tweets(tweet_id,tweet_text,created_at,geo_lat,geo_long,user_id, screen_name, name, profile_image_url, place, lang, description ) VALUES (";
     qr1 += s.getId() + ",'" +
       msg(s.getText()) + "','" +
       sdf.format(s.getCreatedAt())+"'," + 
@@ -50,8 +50,9 @@ class SQLdb {
       s.getUser().getName() + "','"+
       s.getUser().getMiniProfileImageURL() + "','" +
       s.getPlace().getName()  + "','" +
-      s.getLang() +"')";
-
+      s.getLang() +"','" +
+      s.getUser().getDescription() +"')";
+/*
     String qr2 = "INSERT INTO users(user_id, screen_name, name, profile_image_url, location, url, description, created_at, followers_count, friends_count) VALUES (";
     qr2 += s.getUser().getId() + ",'"+
       s.getUser().getScreenName() + "','"+
@@ -63,10 +64,10 @@ class SQLdb {
       sdf.format(s.getUser().getCreatedAt())+ "',"+
       s.getUser().getFollowersCount() + ","+
       s.getUser().getFriendsCount() + ")";
-
+*/
     if ( msql.connect()) {
       msql.query(qr1); //query to tweets table
-      msql.query(qr2); //query to users table
+//      msql.query(qr2); //query to users table
     }
   }
   //get rid of url in tweets
